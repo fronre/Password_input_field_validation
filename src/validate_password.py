@@ -1,26 +1,21 @@
+import re
+
+
 def validate_password(password: str) -> dict:
-    errors = []
+    if " " in password:
+        return {"is_valid": False, "errors": ["Password cannot contain spaces"]}
 
-    if len(password) < 8:
-        errors.append("Password must be at least 8 characters")
+    pattern = (
+        r'^(?=.*[a-z])'
+        r'(?=.*[A-Z])'
+        r'(?=(?:.*\d){2,})'
+        r'(?=.*[^A-Za-z0-9])'
+        r'(?!^[^A-Za-z0-9]+$)'
+        r'.{8,}$'
+    )
 
-    digits = sum(c.isdigit() for c in password)
-    if digits < 2:
-        errors.append("The password must contain at least 2 numbers")
-
-    if not any(c.islower() for c in password):
-        errors.append("The password must contain at least one lowercase letter")
-
-    if not any(c.isupper() for c in password):
-        errors.append("The password must contain at least one uppercase letter")
-
-    if not any(not c.isalnum() for c in password):
-        errors.append("The password must contain at least one special symbol")
-
-    if all(not c.isalnum() for c in password):
-        errors.append("Password cannot contain only symbols")
-
+    is_valid = bool(re.fullmatch(pattern, password))
     return {
-        "is_valid": len(errors) == 0,
-        "errors": errors
+        "is_valid": is_valid,
+        "errors": [] if is_valid else ["Password is invalid"]
     }
