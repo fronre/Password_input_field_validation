@@ -8,6 +8,9 @@ def validate_password(password):
     if digits < 2:
         errors.append("The password must contain at least 2 numbers")
 
+    if not any(c.islower() for c in password):
+        errors.append("The password must contain at least one lowercase letter")
+
     return {
         "is_valid": len(errors) == 0,
         "errors": errors
