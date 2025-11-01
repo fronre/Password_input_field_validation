@@ -11,6 +11,9 @@ def validate_password(password):
     if not any(c.islower() for c in password):
         errors.append("The password must contain at least one lowercase letter")
 
+    if all(not c.isalnum() for c in password):
+        errors.append("Password cannot contain only symbols")
+
     return {
         "is_valid": len(errors) == 0,
         "errors": errors

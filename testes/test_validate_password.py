@@ -7,7 +7,9 @@ from src.validate_password import validate_password
     ("abc", False),
     ("abcdefgh", False),
     ("ab12xyzh", True),
-    ("AB12@XYZ", False)
+    ("AB12@XYZ", False),
+    ("@&-@&-@_", False),
+
 ])
 def test_password_cases(password, expected_valid):
     result = validate_password(password)
