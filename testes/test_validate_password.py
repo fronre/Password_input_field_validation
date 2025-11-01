@@ -6,10 +6,18 @@ from src.validate_password import validate_password
     ("", False),
     ("abc", False),
     ("abcdefgh", False),
-    ("ab12xyzh", True),
+    ("ab1xyz2h", True),
     ("AB12@XYZ", False),
     ("@&-@&-@_", False),
-
+    ("Abcdefg1", False),
+    ("Ab12@xyz", True),
+    ("password12", False),
+    ("Pass12word@", True),
+    ("12345678", False),
+    ("ABCDEFGH12@", False),
+    ("aB12cdef@", True),
+    ("A1b@", False),
+    ("Aa11@aaaa", True),
 ])
 def test_password_cases(password, expected_valid):
     result = validate_password(password)
