@@ -5,3 +5,10 @@ def test_password_has_less_than_two_digits():
     assert validate_password(password) == False
     result = validate_password(password)
 
+def test_password_missing_capital_letters():
+        password = "ab12@abcd"
+        assert validate_password(password) == False
+        result = validate_password(password)
+
+
+
