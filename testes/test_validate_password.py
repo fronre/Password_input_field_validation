@@ -1,23 +1,43 @@
+from pickle import FALSE
+
 import pytest
 from src.validate_password import validate_password
 
 @pytest.mark.parametrize("password, expected_valid", [
-    ("", False),
-    ("abc", False),
-    ("abcdefgh", False),
-    ("ab1xyz2h", True),
+    ("aB1@", False),
+    ("abc123", False),
+    ("Ab12@", False),
+    ("Abcdefgh@", False),
+    ("Abcdefg1@", False),
     ("AB12@XYZ", False),
-    ("@&-@&-@_", False),
-    ("Abcdefg1", False),
-    ("Ab12@xyz", True),
-    ("password12", False),
-    ("Pass12word@", True),
+    ("1234@AAAA", False),
+    ("ab12@xyz", False),
+    ("password12@", False),
+    ("Ab12xyz3", False),
+    ("Pass12word", False),
+    ("@#$%^&*!", False),
+    ("@@@@@@@_", False),
     ("12345678", False),
-    ("ABCDEFGH12@", False),
-    ("aB12cdef@", True),
-    ("A1b@", False),
+    ("9876543210", False),
+    ("abcdefgh", False),
+    ("ABCDEFGH", False),
+    ("12@34@56", False),
+    ("Abcdefg@", False),
+    ("Abcdefg@", False),
+    ("Ab12@xyz", True),
+    ("Pass12word@", True),
     ("Aa11@aaaa", True),
+    ("Hello12@", True),
+    ("StrongP@ss12", True),
+    ("MyPass123@", True),
+    ("A1b2@c3D", True),
+    ("Aa12#test", True),
+    ("Good@P4ssword", False),
+    ("Y0u$GotIt12", True),
+    ("123@@@", False),
+    ("Ab12 @xyz", False),
+    ("Ab12", False),
 ])
 def test_password_cases(password, expected_valid):
     result = validate_password(password)
-    assert result["is_valid"] == expected_valid
+    assert result["is_valid"] == expected_valid, f"Failed for password: {password}"

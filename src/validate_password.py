@@ -19,3 +19,4 @@ def validate_password(password: str) -> dict:
         "is_valid": is_valid,
         "errors": [] if is_valid else ["Password is invalid"]
     }
+
