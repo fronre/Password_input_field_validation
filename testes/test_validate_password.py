@@ -1,7 +1,6 @@
 import pytest
 from src.validate_password import validate_password
 
-
 @pytest.mark.parametrize("password, expected_valid", [
     ("", False),
     ("abc", False),
