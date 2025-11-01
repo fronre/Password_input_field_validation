@@ -1,4 +1,2 @@
-
-
-def validate_password():
+def validate_password(password:str) -> bool:
     pass
