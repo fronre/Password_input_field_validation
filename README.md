@@ -1,106 +1,73 @@
-🧩 Kata 3 – Password Input Field Validation
-📖 Description
-
-This kata focuses on implementing and testing a password validation function.
-The goal is to verify that a given password meets a set of predefined security rules using regular expressions (regex) and automated tests with pytest.
-
-🧠 Requirements
-
-A valid password must satisfy all the following conditions:
-
-At least 8 characters long
-
-Contains at least two digits
-
-Contains at least one lowercase letter
-
-Contains at least one uppercase letter
-
-Contains at least one special character (symbol)
-
-Must not consist only of symbols
-
-⚙️ Implementation
-
-The validation logic is implemented in:
-src/validate_password.py
-
-import re
-
-def validate_password(password: str) -> dict:
-    pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*\d)(?=.*[^A-Za-z0-9])(?!^[^A-Za-z0-9]+$).{8,}$'
-    is_valid = bool(re.match(pattern, password))
-    return {
-        "is_valid": is_valid,
-        "errors": [] if is_valid else ["Password is invalid"]
-    }
-
-🧪 Tests
-
-The tests are implemented using pytest in:
-testes/test_validate_password.py
-
-import pytest
-from src.validate_password import validate_password
-
-@pytest.mark.parametrize("password, expected_valid", [
-    ("aB1@", False),
-    ("abc123", False),
-    ("Ab12@", False),
-    ("Abcdefgh@", False),
-    ("Abcdefg1@", False),
-    ("AB12@XYZ", False),
-    ("1234@AAAA", False),
-    ("ab12@xyz", False),
-    ("password12@", False),
-    ("Ab12xyz3", False),
-    ("Pass12word", False),
-    ("@#$%^&*!", False),
-    ("@@@@@@@_", False),
-    ("12345678", False),
-    ("9876543210", False),
-    ("abcdefgh", False),
-    ("ABCDEFGH", False),
-    ("12@34@56", False),
-    ("Ab12@xyz", True),
-    ("Pass12word@", True),
-    ("Aa11@aaaa", True),
-    ("Hello12@", True),
-    ("StrongP@ss12", True),
-    ("MyPass123@", True),
-    ("A1b2@c3D", True),
-    ("Aa12#test", True),
-    ("Good@P4ssword", True),
-    ("Y0u$GotIt12", True),
-    ("123@@@", False),
-    ("Ab12 @xyz", False),
-    ("Ab12", False),
-])
-def test_password_cases(password, expected_valid):
-    result = validate_password(password)
-    assert result["is_valid"] == expected_valid, f"Failed for password: {password}"
-
-▶️ Run Tests
-
-Make sure you have pytest installed:
-
-pip install pytest
 
 
-Then run all tests:
+# 🧩 Kata 3 – Password Input Field Validation
 
-pytest
+## 📖 Description
 
-✅ Example Output
-=========================== test session starts ============================
-collected 33 items
+This kata focuses on creating a **password validation function** that checks whether a user’s password meets specific security requirements.
+The goal is to implement it using **Test-Driven Development (TDD)** and validate it with **pytest**.
 
-testes/test_validate_password.py .........................         [100%]
+---
 
-=========================== 33 passed in 0.25s ============================
+## 🧠 Requirements
 
-🧾 Author
+A valid password must satisfy **all** the following rules:
 
-Name: hala nohammed islam
-Project: Password Validation Kata (TDD Approach)
-Year: 2025
+1. Must be **at least 8 characters long**.
+2. Must contain **at least 2 digits**.
+3. Must contain **at least one lowercase letter**.
+4. Must contain **at least one uppercase letter**.
+5. Must contain **at least one special character** (e.g. @, #, $, !, etc.).
+6. Cannot consist of symbols only.
+
+---
+
+## ⚙️ Implementation
+
+The validation function is implemented in the `src` directory using **regular expressions (Regex)** to check all password conditions.
+It returns a dictionary containing a boolean (`is_valid`) and a list of error messages (if any).
+
+---
+
+## 🧪 Testing
+
+All test cases are written with **pytest** inside the `testes` folder.
+The tests cover multiple scenarios, including:
+
+* Too short passwords
+* Missing digits, letters, or symbols
+* Valid passwords that meet all rules
+* Passwords containing only symbols or spaces
+
+---
+
+## ▶️ How to Run
+
+1. Install pytest:
+
+   ```bash
+   pip install pytest
+   ```
+2. Run the tests:
+
+   ```bash
+   pytest
+   ```
+
+---
+
+## ✅ Expected Result
+
+When all conditions are correctly implemented, all test cases should pass without any errors.
+
+---
+
+## 🧾 Information
+
+* **Author:** Hala Mohamed
+* **Project:** Password Validation Kata (TDD)
+* **Year:** 2025
+
+---
+
+Would you like me to make a **short version (for GitHub README)** — just 2–3 sections with a professional summary and setup instructions?
